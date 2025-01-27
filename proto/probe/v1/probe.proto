@@ -10,7 +10,7 @@ service ProbeService {
   rpc GetMetadata(GetMetadataRequest) returns (GetMetadataResponse){
     option (google.api.http) = {
       // Route to this method from POST requests to /metadata
-      post: "/metadata"
+      post: "/probe/v1/metadata"
       body: "*"
       response_body: "metadata"
     };

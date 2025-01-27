@@ -79,7 +79,7 @@ func RegisterProbeServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/metadata"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/probe/v1/metadata"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -143,7 +143,7 @@ func RegisterProbeServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/metadata"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/probe/v1/metadata"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -172,7 +172,7 @@ func (m response_ProbeService_GetMetadata_0) XXX_ResponseBody() interface{} {
 }
 
 var (
-	pattern_ProbeService_GetMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"metadata"}, ""))
+	pattern_ProbeService_GetMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "metadata"}, ""))
 )
 
 var (
