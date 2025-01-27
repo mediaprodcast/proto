@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package probe.v1;
+
+option go_package = "github.com/mediaprodcast/proto/genproto/go/probe/v1;probe";
+
+import "google/api/annotations.proto";
+
+service ProbeService {
+  rpc GetMetadata(GetMetadataRequest) returns (GetMetadataResponse){
+    option (google.api.http) = {
+      // Route to this method from POST requests to /metadata
+      post: "/metadata"
+      body: "*"
+      response_body: "metadata"
+    };
+  }
+}
+
+message Metadata {
+  int32 width = 3;
+  int32 height = 4;
+}
+
+message GetMetadataRequest {
+  string input = 1;
+}
+
+message GetMetadataResponse {
+  Metadata metadata = 1;
+}
