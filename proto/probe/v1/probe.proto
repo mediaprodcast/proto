@@ -6,26 +6,180 @@ option go_package = "github.com/mediaprodcast/proto/genproto/go/probe/v1;probe";
 
 import "google/api/annotations.proto";
 
-service ProbeService {
-  rpc GetMetadata(GetMetadataRequest) returns (GetMetadataResponse){
-    option (google.api.http) = {
-      // Route to this method from POST requests to /metadata
-      post: "/probe/v1/metadata"
-      body: "*"
-      response_body: "metadata"
-    };
+message StreamType {
+  enum Type {
+    STREAM_ANY = 0;
+    STREAM_VIDEO = 1;
+    STREAM_AUDIO = 2;
+    STREAM_SUBTITLE = 3;
+    STREAM_DATA = 4;
+    STREAM_ATTACHMENT = 5;
   }
+
+  Type type = 1;
 }
 
-message Metadata {
-  int32 width = 3;
-  int32 height = 4;
+message StreamDisposition {
+  int32 default = 1;
+  int32 dub = 2;
+  int32 original = 3;
+  int32 comment = 4;
+  int32 lyrics = 5;
+  int32 karaoke = 6;
+  int32 forced = 7;
+  int32 hearing_impaired = 8;
+  int32 visual_impaired = 9;
+  int32 clean_effects = 10;
+  int32 attached_pic = 11;
 }
 
-message GetMetadataRequest {
+message Stream {
+  int32 index = 1;
+  string id = 2;
+  string codec_name = 3;
+  string codec_long_name = 4;
+  string codec_type = 5;
+  string codec_time_base = 6;
+  string codec_tag_string = 7;
+  string codec_tag = 8;
+  string r_frame_rate = 9;
+  string avg_frame_rate = 10;
+  string time_base = 11;
+  int32 start_pts = 12;
+  string start_time = 13;
+  uint64 duration_ts = 14;
+  string duration = 15;
+  string bit_rate = 16;
+  string bits_per_raw_sample = 17;
+  string nb_frames = 18;
+  StreamDisposition disposition = 19;
+  map<string, string> tags = 20;
+  string field_order = 21;
+  string profile = 22;
+  int32 width = 23;
+  int32 height = 24;
+  int32 has_b_frames = 25;
+  string sample_aspect_ratio = 26;
+  string display_aspect_ratio = 27;
+  string pix_fmt = 28;
+  int32 level = 29;
+  string color_range = 30;
+  string color_space = 31;
+  string color_transfer = 32;
+  string color_primaries = 33;
+  string sample_fmt = 34;
+  string sample_rate = 35;
+  int32 channels = 36;
+  string channel_layout = 37;
+  int32 bits_per_sample = 38;
+}
+
+message Format {
+  string filename = 1;
+  int32 nb_streams = 2;
+  int32 nb_programs = 3;
+  string format_name = 4;
+  string format_long_name = 5;
+  double start_time_seconds = 6;
+  double duration_seconds = 7;
+  string size = 8;
+  string bit_rate = 9;
+  int32 probe_score = 10;
+  map<string, string> tags = 11;
+}
+
+message Chapter {
+  int32 id = 1;
+  string time_base = 2;
+  double start_time_seconds = 3;
+  double end_time_seconds = 4;
+  map<string, string> tags = 5;
+}
+
+message ProbeData {
+  repeated Stream streams = 1;
+  Format format = 2;
+  repeated Chapter chapters = 3;
+}
+
+message GetProbeDataRequest {
   string input = 1;
 }
 
-message GetMetadataResponse {
-  Metadata metadata = 1;
+message GetStreamsResponse {
+  repeated Stream streams = 1;
+}
+
+message GetFormatResponse {
+  Format format = 1;
+}
+
+message GetChaptersResponse {
+  repeated Chapter chapters = 1;
+}
+
+message GetProbeDataResponse {
+  ProbeData data = 1;
+}
+
+message GetBulkProbeDataRequest {
+  repeated string input = 1;
+}
+
+message GetBulkProbeDataResponse {
+  repeated ProbeData data = 1;
+}
+
+message GetStreamRequest {
+  int32 index = 1;
+  string input = 2;
+}
+
+message GetStreamResponse {
+  Stream stream = 1;
+}
+
+service ProbeService {
+  rpc GetProbeData(GetProbeDataRequest) returns (GetProbeDataResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/data"
+      body: "*"
+      response_body: "data"
+    };
+  }
+  rpc GetProbeDataBulk(GetBulkProbeDataRequest) returns (GetBulkProbeDataResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/data/bulk"
+      body: "*"
+      response_body: "data"
+    };
+  }
+  rpc GetStreams(GetProbeDataRequest) returns (GetStreamsResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/streams"
+      body: "*"
+      response_body: "streams"
+    };
+  }
+  rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/streams/{index}"
+      body: "*"
+      response_body: "stream"
+    };
+  }
+  rpc GetChapters(GetProbeDataRequest) returns (GetChaptersResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/chapters"
+      body: "*"
+      response_body: "chapters"
+    };
+  }
+  rpc GetFormat(GetProbeDataRequest) returns (GetFormatResponse) {
+    option (google.api.http) = {
+      post: "/probe/v1/format"
+      body: "*"
+      response_body: "format"
+    };
+  }
 }

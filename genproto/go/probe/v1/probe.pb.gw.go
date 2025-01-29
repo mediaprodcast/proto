@@ -31,8 +31,8 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_ProbeService_GetMetadata_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetMetadataRequest
+func request_ProbeService_GetProbeData_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -43,13 +43,13 @@ func request_ProbeService_GetMetadata_0(ctx context.Context, marshaler runtime.M
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetMetadata(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetProbeData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_ProbeService_GetMetadata_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetMetadataRequest
+func local_request_ProbeService_GetProbeData_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -60,7 +60,211 @@ func local_request_ProbeService_GetMetadata_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetMetadata(ctx, &protoReq)
+	msg, err := server.GetProbeData(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetBulkProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetProbeDataBulk(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetBulkProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetProbeDataBulk(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ProbeService_GetStreams_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetStreams(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ProbeService_GetStreams_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetStreams(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ProbeService_GetStream_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetStreamRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["index"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index")
+	}
+
+	protoReq.Index, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
+	}
+
+	msg, err := client.GetStream(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ProbeService_GetStream_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetStreamRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["index"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index")
+	}
+
+	protoReq.Index, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
+	}
+
+	msg, err := server.GetStream(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ProbeService_GetChapters_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetChapters(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ProbeService_GetChapters_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetChapters(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_ProbeService_GetFormat_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetFormat(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_ProbeService_GetFormat_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq GetProbeDataRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetFormat(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -71,7 +275,7 @@ func local_request_ProbeService_GetMetadata_0(ctx context.Context, marshaler run
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterProbeServiceHandlerFromEndpoint instead.
 func RegisterProbeServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ProbeServiceServer) error {
 
-	mux.Handle("POST", pattern_ProbeService_GetMetadata_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ProbeService_GetProbeData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -79,12 +283,12 @@ func RegisterProbeServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/probe/v1/metadata"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetProbeData", runtime.WithHTTPPathPattern("/probe/v1/data"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_ProbeService_GetMetadata_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_ProbeService_GetProbeData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -92,7 +296,132 @@ func RegisterProbeServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 			return
 		}
 
-		forward_ProbeService_GetMetadata_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetMetadata_0{resp}, mux.GetForwardResponseOptions()...)
+		forward_ProbeService_GetProbeData_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetProbeData_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetProbeDataBulk_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetProbeDataBulk", runtime.WithHTTPPathPattern("/probe/v1/data/bulk"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ProbeService_GetProbeDataBulk_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetProbeDataBulk_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetProbeDataBulk_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetStreams_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetStreams", runtime.WithHTTPPathPattern("/probe/v1/streams"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ProbeService_GetStreams_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetStreams_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetStreams_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetStream", runtime.WithHTTPPathPattern("/probe/v1/streams/{index}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ProbeService_GetStream_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetStream_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetStream_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetChapters_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetChapters", runtime.WithHTTPPathPattern("/probe/v1/chapters"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ProbeService_GetChapters_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetChapters_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetChapters_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetFormat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/probe.v1.ProbeService/GetFormat", runtime.WithHTTPPathPattern("/probe/v1/format"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_ProbeService_GetFormat_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetFormat_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetFormat_0{resp}, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -137,44 +466,219 @@ func RegisterProbeServiceHandler(ctx context.Context, mux *runtime.ServeMux, con
 // "ProbeServiceClient" to call the correct interceptors.
 func RegisterProbeServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ProbeServiceClient) error {
 
-	mux.Handle("POST", pattern_ProbeService_GetMetadata_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_ProbeService_GetProbeData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetMetadata", runtime.WithHTTPPathPattern("/probe/v1/metadata"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetProbeData", runtime.WithHTTPPathPattern("/probe/v1/data"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_ProbeService_GetMetadata_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_ProbeService_GetProbeData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_ProbeService_GetMetadata_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetMetadata_0{resp}, mux.GetForwardResponseOptions()...)
+		forward_ProbeService_GetProbeData_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetProbeData_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetProbeDataBulk_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetProbeDataBulk", runtime.WithHTTPPathPattern("/probe/v1/data/bulk"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ProbeService_GetProbeDataBulk_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetProbeDataBulk_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetProbeDataBulk_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetStreams_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetStreams", runtime.WithHTTPPathPattern("/probe/v1/streams"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ProbeService_GetStreams_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetStreams_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetStreams_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetStream", runtime.WithHTTPPathPattern("/probe/v1/streams/{index}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ProbeService_GetStream_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetStream_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetStream_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetChapters_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetChapters", runtime.WithHTTPPathPattern("/probe/v1/chapters"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ProbeService_GetChapters_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetChapters_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetChapters_0{resp}, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_ProbeService_GetFormat_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/probe.v1.ProbeService/GetFormat", runtime.WithHTTPPathPattern("/probe/v1/format"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ProbeService_GetFormat_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ProbeService_GetFormat_0(annotatedContext, mux, outboundMarshaler, w, req, response_ProbeService_GetFormat_0{resp}, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-type response_ProbeService_GetMetadata_0 struct {
+type response_ProbeService_GetProbeData_0 struct {
 	proto.Message
 }
 
-func (m response_ProbeService_GetMetadata_0) XXX_ResponseBody() interface{} {
-	response := m.Message.(*GetMetadataResponse)
-	return response.Metadata
+func (m response_ProbeService_GetProbeData_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetProbeDataResponse)
+	return response.Data
+}
+
+type response_ProbeService_GetProbeDataBulk_0 struct {
+	proto.Message
+}
+
+func (m response_ProbeService_GetProbeDataBulk_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetBulkProbeDataResponse)
+	return response.Data
+}
+
+type response_ProbeService_GetStreams_0 struct {
+	proto.Message
+}
+
+func (m response_ProbeService_GetStreams_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetStreamsResponse)
+	return response.Streams
+}
+
+type response_ProbeService_GetStream_0 struct {
+	proto.Message
+}
+
+func (m response_ProbeService_GetStream_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetStreamResponse)
+	return response.Stream
+}
+
+type response_ProbeService_GetChapters_0 struct {
+	proto.Message
+}
+
+func (m response_ProbeService_GetChapters_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetChaptersResponse)
+	return response.Chapters
+}
+
+type response_ProbeService_GetFormat_0 struct {
+	proto.Message
+}
+
+func (m response_ProbeService_GetFormat_0) XXX_ResponseBody() interface{} {
+	response := m.Message.(*GetFormatResponse)
+	return response.Format
 }
 
 var (
-	pattern_ProbeService_GetMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "metadata"}, ""))
+	pattern_ProbeService_GetProbeData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "data"}, ""))
+
+	pattern_ProbeService_GetProbeDataBulk_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"probe", "v1", "data", "bulk"}, ""))
+
+	pattern_ProbeService_GetStreams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "streams"}, ""))
+
+	pattern_ProbeService_GetStream_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"probe", "v1", "streams", "index"}, ""))
+
+	pattern_ProbeService_GetChapters_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "chapters"}, ""))
+
+	pattern_ProbeService_GetFormat_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"probe", "v1", "format"}, ""))
 )
 
 var (
-	forward_ProbeService_GetMetadata_0 = runtime.ForwardResponseMessage
+	forward_ProbeService_GetProbeData_0 = runtime.ForwardResponseMessage
+
+	forward_ProbeService_GetProbeDataBulk_0 = runtime.ForwardResponseMessage
+
+	forward_ProbeService_GetStreams_0 = runtime.ForwardResponseMessage
+
+	forward_ProbeService_GetStream_0 = runtime.ForwardResponseMessage
+
+	forward_ProbeService_GetChapters_0 = runtime.ForwardResponseMessage
+
+	forward_ProbeService_GetFormat_0 = runtime.ForwardResponseMessage
 )

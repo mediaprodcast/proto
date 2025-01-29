@@ -19,14 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ProbeService_GetMetadata_FullMethodName = "/probe.v1.ProbeService/GetMetadata"
+	ProbeService_GetProbeData_FullMethodName     = "/probe.v1.ProbeService/GetProbeData"
+	ProbeService_GetProbeDataBulk_FullMethodName = "/probe.v1.ProbeService/GetProbeDataBulk"
+	ProbeService_GetStreams_FullMethodName       = "/probe.v1.ProbeService/GetStreams"
+	ProbeService_GetStream_FullMethodName        = "/probe.v1.ProbeService/GetStream"
+	ProbeService_GetChapters_FullMethodName      = "/probe.v1.ProbeService/GetChapters"
+	ProbeService_GetFormat_FullMethodName        = "/probe.v1.ProbeService/GetFormat"
 )
 
 // ProbeServiceClient is the client API for ProbeService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProbeServiceClient interface {
-	GetMetadata(ctx context.Context, in *GetMetadataRequest, opts ...grpc.CallOption) (*GetMetadataResponse, error)
+	GetProbeData(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetProbeDataResponse, error)
+	GetProbeDataBulk(ctx context.Context, in *GetBulkProbeDataRequest, opts ...grpc.CallOption) (*GetBulkProbeDataResponse, error)
+	GetStreams(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetStreamsResponse, error)
+	GetStream(ctx context.Context, in *GetStreamRequest, opts ...grpc.CallOption) (*GetStreamResponse, error)
+	GetChapters(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetChaptersResponse, error)
+	GetFormat(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetFormatResponse, error)
 }
 
 type probeServiceClient struct {
@@ -37,9 +47,54 @@ func NewProbeServiceClient(cc grpc.ClientConnInterface) ProbeServiceClient {
 	return &probeServiceClient{cc}
 }
 
-func (c *probeServiceClient) GetMetadata(ctx context.Context, in *GetMetadataRequest, opts ...grpc.CallOption) (*GetMetadataResponse, error) {
-	out := new(GetMetadataResponse)
-	err := c.cc.Invoke(ctx, ProbeService_GetMetadata_FullMethodName, in, out, opts...)
+func (c *probeServiceClient) GetProbeData(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetProbeDataResponse, error) {
+	out := new(GetProbeDataResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetProbeData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *probeServiceClient) GetProbeDataBulk(ctx context.Context, in *GetBulkProbeDataRequest, opts ...grpc.CallOption) (*GetBulkProbeDataResponse, error) {
+	out := new(GetBulkProbeDataResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetProbeDataBulk_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *probeServiceClient) GetStreams(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetStreamsResponse, error) {
+	out := new(GetStreamsResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetStreams_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *probeServiceClient) GetStream(ctx context.Context, in *GetStreamRequest, opts ...grpc.CallOption) (*GetStreamResponse, error) {
+	out := new(GetStreamResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetStream_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *probeServiceClient) GetChapters(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetChaptersResponse, error) {
+	out := new(GetChaptersResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetChapters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *probeServiceClient) GetFormat(ctx context.Context, in *GetProbeDataRequest, opts ...grpc.CallOption) (*GetFormatResponse, error) {
+	out := new(GetFormatResponse)
+	err := c.cc.Invoke(ctx, ProbeService_GetFormat_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,15 +105,35 @@ func (c *probeServiceClient) GetMetadata(ctx context.Context, in *GetMetadataReq
 // All implementations should embed UnimplementedProbeServiceServer
 // for forward compatibility
 type ProbeServiceServer interface {
-	GetMetadata(context.Context, *GetMetadataRequest) (*GetMetadataResponse, error)
+	GetProbeData(context.Context, *GetProbeDataRequest) (*GetProbeDataResponse, error)
+	GetProbeDataBulk(context.Context, *GetBulkProbeDataRequest) (*GetBulkProbeDataResponse, error)
+	GetStreams(context.Context, *GetProbeDataRequest) (*GetStreamsResponse, error)
+	GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error)
+	GetChapters(context.Context, *GetProbeDataRequest) (*GetChaptersResponse, error)
+	GetFormat(context.Context, *GetProbeDataRequest) (*GetFormatResponse, error)
 }
 
 // UnimplementedProbeServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedProbeServiceServer struct {
 }
 
-func (UnimplementedProbeServiceServer) GetMetadata(context.Context, *GetMetadataRequest) (*GetMetadataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetMetadata not implemented")
+func (UnimplementedProbeServiceServer) GetProbeData(context.Context, *GetProbeDataRequest) (*GetProbeDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProbeData not implemented")
+}
+func (UnimplementedProbeServiceServer) GetProbeDataBulk(context.Context, *GetBulkProbeDataRequest) (*GetBulkProbeDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProbeDataBulk not implemented")
+}
+func (UnimplementedProbeServiceServer) GetStreams(context.Context, *GetProbeDataRequest) (*GetStreamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStreams not implemented")
+}
+func (UnimplementedProbeServiceServer) GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStream not implemented")
+}
+func (UnimplementedProbeServiceServer) GetChapters(context.Context, *GetProbeDataRequest) (*GetChaptersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChapters not implemented")
+}
+func (UnimplementedProbeServiceServer) GetFormat(context.Context, *GetProbeDataRequest) (*GetFormatResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFormat not implemented")
 }
 
 // UnsafeProbeServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -72,20 +147,110 @@ func RegisterProbeServiceServer(s grpc.ServiceRegistrar, srv ProbeServiceServer)
 	s.RegisterService(&ProbeService_ServiceDesc, srv)
 }
 
-func _ProbeService_GetMetadata_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetMetadataRequest)
+func _ProbeService_GetProbeData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProbeDataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProbeServiceServer).GetMetadata(ctx, in)
+		return srv.(ProbeServiceServer).GetProbeData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ProbeService_GetMetadata_FullMethodName,
+		FullMethod: ProbeService_GetProbeData_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProbeServiceServer).GetMetadata(ctx, req.(*GetMetadataRequest))
+		return srv.(ProbeServiceServer).GetProbeData(ctx, req.(*GetProbeDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProbeService_GetProbeDataBulk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBulkProbeDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProbeServiceServer).GetProbeDataBulk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProbeService_GetProbeDataBulk_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProbeServiceServer).GetProbeDataBulk(ctx, req.(*GetBulkProbeDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProbeService_GetStreams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProbeDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProbeServiceServer).GetStreams(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProbeService_GetStreams_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProbeServiceServer).GetStreams(ctx, req.(*GetProbeDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProbeService_GetStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStreamRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProbeServiceServer).GetStream(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProbeService_GetStream_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProbeServiceServer).GetStream(ctx, req.(*GetStreamRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProbeService_GetChapters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProbeDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProbeServiceServer).GetChapters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProbeService_GetChapters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProbeServiceServer).GetChapters(ctx, req.(*GetProbeDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProbeService_GetFormat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProbeDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProbeServiceServer).GetFormat(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProbeService_GetFormat_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProbeServiceServer).GetFormat(ctx, req.(*GetProbeDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -98,8 +263,28 @@ var ProbeService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ProbeServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetMetadata",
-			Handler:    _ProbeService_GetMetadata_Handler,
+			MethodName: "GetProbeData",
+			Handler:    _ProbeService_GetProbeData_Handler,
+		},
+		{
+			MethodName: "GetProbeDataBulk",
+			Handler:    _ProbeService_GetProbeDataBulk_Handler,
+		},
+		{
+			MethodName: "GetStreams",
+			Handler:    _ProbeService_GetStreams_Handler,
+		},
+		{
+			MethodName: "GetStream",
+			Handler:    _ProbeService_GetStream_Handler,
+		},
+		{
+			MethodName: "GetChapters",
+			Handler:    _ProbeService_GetChapters_Handler,
+		},
+		{
+			MethodName: "GetFormat",
+			Handler:    _ProbeService_GetFormat_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
