@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package orchestrator.v1;
+
+import "google/api/annotations.proto";
+import "orchestrator/v1/configurations/input_config.proto";
+
+// -------------------------------------------------requests------------------------------
+message CreateJobRequest {
+  string org_id = 1;
+  repeated TranscodingProfile transcoding_profiles = 2;
+}
+
+enum JobStatus {
+  JOB_STATUS_UNSPECIFIED = 0;
+  QUEUED = 1;
+  PROCESSING = 2;
+  COMPLETED = 3;
+  FAILED = 4;
+  CANCELLED = 5;
+}
+
+message CreateJobResponse {
+  string job_id = 1;
+  JobStatus status = 2;
+}
+
+message UpdateJobRequest {
+  string job_id = 1;
+  JobStatus status = 2;
+  repeated TranscodingProfile transcoding_profiles = 3;
+}
+
+message UpdateJobResponse {
+  Job job = 1;
+}
+
+message DestroyJobRequest {
+  string job_id = 1;
+}
+
+message DestroyJobResponse {
+  string job_id = 1;
+  bool success = 2;
+}
+
+message TranscodingProfile {
+  int32 bitrate = 1;
+  int32 frame_rate = 2;
+}
+
+message GetJobsRequest {
+  string org_id = 1;
+  int32 page_size = 2;
+  int32 page_token = 3;
+}
+
+message GetJobsResponse {
+  repeated Job jobs = 1;
+  int32 total_count = 2;
+}
+
+message Job {
+  string id = 1;
+  string job_id = 2;
+  JobStatus status = 3;
+}
+
+message Empty {}
+
+message GetJobRequest {
+  string org_id = 1;
+  string job_id = 2;
+}
+
+message EchoTestResponse {
+  configurations.v1.Input data = 1;
+}
+
+message EchoTestRequest {
+  configurations.v1.Input input = 1;
+}
+
+service OrchestratorService {
+  rpc CreateJob(CreateJobRequest) returns (CreateJobResponse) {
+    option (google.api.http) = {
+      post: "/orchestrator/v1/jobs"
+      body: "*"
+    };
+  }
+  rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse) {
+    option (google.api.http) = {
+      put: "/orchestrator/v1/jobs/{job_id}"
+      body: "*"
+    };
+  }
+  rpc DestroyJob(DestroyJobRequest) returns (DestroyJobResponse) {
+    option (google.api.http) = {
+      delete: "/orchestrator/v1/jobs/{job_id}"
+    };
+  }
+  rpc GetJob(GetJobRequest) returns (Job) {
+    option (google.api.http) = {
+      get: "/orchestrator/v1/jobs/{job_id}"
+    };
+  }
+  rpc CancelJob(GetJobRequest) returns (Empty) {
+    option (google.api.http) = {
+      post: "/orchestrator/v1/jobs/{job_id}/cancel"
+    };
+  }
+  rpc GetJobs(GetJobsRequest) returns (GetJobsResponse) {
+    option (google.api.http) = {
+      get: "/orchestrator/v1/jobs"
+    };
+  }
+  rpc EchoTest(EchoTestRequest) returns (EchoTestResponse) {
+    option (google.api.http) = {
+      post: "/orchestrator/v1/marshal"
+      body: "*"
+      // response_body: "data"
+    };
+  }
+}
+

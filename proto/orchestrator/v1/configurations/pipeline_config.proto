@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package configurations.v1;
+
+import "orchestrator/v1/configurations/bitrate_config.proto";
+import "orchestrator/v1/configurations/encryption_config.proto";
+
+// Represents the streaming mode.
+enum StreamingMode {
+  LIVE = 0; // Live stream.
+  VOD = 1; // Video-on-demand stream.
+}
+
+// Represents the manifest format.
+enum ManifestFormat {
+  DASH = 0; // DASH (Dynamic Adaptive Streaming over HTTP)
+  HLS = 1; // HLS (HTTP Live Streaming)
+}
+
+// Represents a UTCTiming element for DASH MPD.
+message UtcTimingPair {
+  string scheme_id_uri = 1; // SchemeIdUri attribute.
+  string value = 2; // Value attribute.
+}
+
+// Represents the entire pipeline configuration.
+message PipelineConfiguration {
+  StreamingMode streaming_mode = 1; // Streaming mode.
+  bool quiet = 2; // Whether to suppress output.
+  bool debug_logs = 3; // Whether to enable debug logs.
+  string hwaccel_api = 4; // Hardware acceleration API.
+  repeated string resolutions = 5; // List of resolutions to encode.
+  repeated string channel_layouts = 6; // List of channel layouts to encode.
+  repeated AudioCodec audio_codecs = 7; // List of audio codecs to use.
+  repeated VideoCodec video_codecs = 8; // List of video codecs to use.
+  repeated ManifestFormat manifest_format = 9; // List of manifest formats to create.
+  string dash_output = 10; // Output filename for DASH manifest.
+  string hls_output = 11; // Output filename for HLS master playlist.
+  string segment_folder = 12; // Sub-folder for segment output.
+  int32 segment_size = 13; // Length of each segment in seconds.
+  bool segment_per_file = 14; // Whether to put each segment in a separate file.
+  bool generate_iframe_playlist = 15; // If true, the iFrame playlist will be generated.
+  int32 availability_window = 16; // Segment availability window in seconds.
+  int32 presentation_delay = 17; // Presentation delay in seconds.
+  int32 update_period = 18; // Manifest update period in seconds.
+  EncryptionConfig encryption = 19; // Encryption configuration.
+  bool low_latency_dash_mode = 20; // Whether to use low latency mode for DASH.
+  repeated UtcTimingPair utc_timings = 21; // List of UTCTiming pairs for DASH MPD.
+  BitrateConfiguration bitrate_config = 22; // Bitrate configuration. Added BitrateConfiguration to PipelineConfig
+}

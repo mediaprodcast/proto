@@ -2,21 +2,15 @@ syntax = "proto3";
 
 package probe.v1;
 
-option go_package = "github.com/mediaprodcast/proto/genproto/go/probe/v1;probe";
-
 import "google/api/annotations.proto";
 
-message StreamType {
-  enum Type {
-    STREAM_ANY = 0;
-    STREAM_VIDEO = 1;
-    STREAM_AUDIO = 2;
-    STREAM_SUBTITLE = 3;
-    STREAM_DATA = 4;
-    STREAM_ATTACHMENT = 5;
-  }
-
-  Type type = 1;
+enum StreamType {
+  ANY = 0;
+  VIDEO = 1;
+  AUDIO = 2;
+  SUBTITLE = 3;
+  DATA = 4;
+  ATTACHMENT = 5;
 }
 
 message StreamDisposition {
@@ -38,7 +32,7 @@ message Stream {
   string id = 2;
   string codec_name = 3;
   string codec_long_name = 4;
-  string codec_type = 5;
+  StreamType codec_type = 5;
   string codec_time_base = 6;
   string codec_tag_string = 7;
   string codec_tag = 8;
@@ -122,11 +116,11 @@ message GetProbeDataResponse {
   ProbeData data = 1;
 }
 
-message GetBulkProbeDataRequest {
+message GetProbeDataBulkRequest {
   repeated string input = 1;
 }
 
-message GetBulkProbeDataResponse {
+message GetProbeDataBulkResponse {
   repeated ProbeData data = 1;
 }
 
@@ -139,6 +133,18 @@ message GetStreamResponse {
   Stream stream = 1;
 }
 
+message GetStreamsRequest {
+  string input = 1;
+}
+
+message GetChaptersRequest {
+  string input = 1;
+}
+
+message GetFormatRequest {
+  string input = 1;
+}
+
 service ProbeService {
   rpc GetProbeData(GetProbeDataRequest) returns (GetProbeDataResponse) {
     option (google.api.http) = {
@@ -147,14 +153,14 @@ service ProbeService {
       response_body: "data"
     };
   }
-  rpc GetProbeDataBulk(GetBulkProbeDataRequest) returns (GetBulkProbeDataResponse) {
+  rpc GetProbeDataBulk(GetProbeDataBulkRequest) returns (GetProbeDataBulkResponse) {
     option (google.api.http) = {
       post: "/probe/v1/data/bulk"
       body: "*"
       response_body: "data"
     };
   }
-  rpc GetStreams(GetProbeDataRequest) returns (GetStreamsResponse) {
+  rpc GetStreams(GetStreamsRequest) returns (GetStreamsResponse) {
     option (google.api.http) = {
       post: "/probe/v1/streams"
       body: "*"
@@ -163,19 +169,18 @@ service ProbeService {
   }
   rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {
     option (google.api.http) = {
-      post: "/probe/v1/streams/{index}"
-      body: "*"
+      get: "/probe/v1/streams/{index}" // Changed to GET for single stream retrieval
       response_body: "stream"
     };
   }
-  rpc GetChapters(GetProbeDataRequest) returns (GetChaptersResponse) {
+  rpc GetChapters(GetChaptersRequest) returns (GetChaptersResponse) {
     option (google.api.http) = {
       post: "/probe/v1/chapters"
       body: "*"
       response_body: "chapters"
     };
   }
-  rpc GetFormat(GetProbeDataRequest) returns (GetFormatResponse) {
+  rpc GetFormat(GetFormatRequest) returns (GetFormatResponse) {
     option (google.api.http) = {
       post: "/probe/v1/format"
       body: "*"

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package configurations.v1;
+
+// Represents a protection scheme.
+enum ProtectionScheme {
+  CENC = 0; // CENC (Common Encryption)
+  CBCS = 1; // CBCS (Cipher Block Chaining with Salt)
+}
+
+// Represents a protection system.
+enum ProtectionSystem {
+  WIDEVINE = 0; // Widevine DRM
+  FAIRPLAY = 1; // FairPlay DRM
+  PLAYREADY = 2; // PlayReady DRM
+  MARLIN = 3; // Marlin DRM
+  COMMON = 4; // Common System
+}
+
+// Represents a raw key configuration.
+message RawKeyConfig {
+  string label = 1; // Label for the key.
+  string key_id = 2; // Key identifier (32-digit hex string).
+  string key = 3; // Encryption key (32-digit hex string).
+}
+
+// Represents the encryption configuration.
+message EncryptionConfig {
+  // Represents the encryption mode.
+  enum EncryptionMode {
+    WIDEVINE = 0; // Widevine key server mode
+    RAW = 1; // Raw key mode
+  }
+
+  bool enable = 1; // Whether encryption is enabled.
+  EncryptionMode encryption_mode = 2; // Encryption mode.
+  repeated ProtectionSystem protection_systems = 3; // List of protection systems.
+  string pssh = 4; // PSSH box in hex string format (for raw mode).
+  string iv = 5; // IV in hex string format (for raw mode).
+  repeated RawKeyConfig keys = 6; // List of encryption keys (for raw mode).
+  string content_id = 7; // Content ID in hex (for widevine mode).
+  string key_server_url = 8; // Key server URL (for widevine mode).
+  string signer = 9; // Signer for key server authentication (for widevine mode).
+  string signing_key = 10; // Signing key in hex (for widevine mode).
+  string signing_iv = 11; // Signing IV in hex (for widevine mode).
+  ProtectionScheme protection_scheme = 12; // Protection scheme.
+  int32 clear_lead = 13; // Seconds of unencrypted media at the beginning.
+}

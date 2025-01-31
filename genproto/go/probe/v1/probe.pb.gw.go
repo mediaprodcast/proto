@@ -2,11 +2,11 @@
 // source: probe/v1/probe.proto
 
 /*
-Package probe is a reverse proxy.
+Package probev1 is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package probe
+package probev1
 
 import (
 	"context"
@@ -66,7 +66,7 @@ func local_request_ProbeService_GetProbeData_0(ctx context.Context, marshaler ru
 }
 
 func request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBulkProbeDataRequest
+	var protoReq GetProbeDataBulkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -83,7 +83,7 @@ func request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshaler runt
 }
 
 func local_request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetBulkProbeDataRequest
+	var protoReq GetProbeDataBulkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -100,7 +100,7 @@ func local_request_ProbeService_GetProbeDataBulk_0(ctx context.Context, marshale
 }
 
 func request_ProbeService_GetStreams_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetStreamsRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -117,7 +117,7 @@ func request_ProbeService_GetStreams_0(ctx context.Context, marshaler runtime.Ma
 }
 
 func local_request_ProbeService_GetStreams_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetStreamsRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -133,17 +133,13 @@ func local_request_ProbeService_GetStreams_0(ctx context.Context, marshaler runt
 
 }
 
+var (
+	filter_ProbeService_GetStream_0 = &utilities.DoubleArray{Encoding: map[string]int{"index": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
 func request_ProbeService_GetStream_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetStreamRequest
 	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
 
 	var (
 		val string
@@ -160,6 +156,13 @@ func request_ProbeService_GetStream_0(ctx context.Context, marshaler runtime.Mar
 	protoReq.Index, err = runtime.Int32(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ProbeService_GetStream_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.GetStream(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -171,14 +174,6 @@ func local_request_ProbeService_GetStream_0(ctx context.Context, marshaler runti
 	var protoReq GetStreamRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	var (
 		val string
 		ok  bool
@@ -196,13 +191,20 @@ func local_request_ProbeService_GetStream_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
 	}
 
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ProbeService_GetStream_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
 	msg, err := server.GetStream(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 func request_ProbeService_GetChapters_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetChaptersRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -219,7 +221,7 @@ func request_ProbeService_GetChapters_0(ctx context.Context, marshaler runtime.M
 }
 
 func local_request_ProbeService_GetChapters_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetChaptersRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -236,7 +238,7 @@ func local_request_ProbeService_GetChapters_0(ctx context.Context, marshaler run
 }
 
 func request_ProbeService_GetFormat_0(ctx context.Context, marshaler runtime.Marshaler, client ProbeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetFormatRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -253,7 +255,7 @@ func request_ProbeService_GetFormat_0(ctx context.Context, marshaler runtime.Mar
 }
 
 func local_request_ProbeService_GetFormat_0(ctx context.Context, marshaler runtime.Marshaler, server ProbeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq GetProbeDataRequest
+	var protoReq GetFormatRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -350,7 +352,7 @@ func RegisterProbeServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("POST", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -532,7 +534,7 @@ func RegisterProbeServiceHandlerClient(ctx context.Context, mux *runtime.ServeMu
 
 	})
 
-	mux.Handle("POST", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ProbeService_GetStream_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -615,7 +617,7 @@ type response_ProbeService_GetProbeDataBulk_0 struct {
 }
 
 func (m response_ProbeService_GetProbeDataBulk_0) XXX_ResponseBody() interface{} {
-	response := m.Message.(*GetBulkProbeDataResponse)
+	response := m.Message.(*GetProbeDataBulkResponse)
 	return response.Data
 }
 

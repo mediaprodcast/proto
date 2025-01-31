@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package configurations.v1;
+
+// Represents an audio codec.
+enum AudioCodec {
+  AAC = 0; // Advanced Audio Coding
+  OPUS = 1; // Opus codec
+  AC3 = 2; // Dolby Digital (AC-3)
+  EAC3 = 3; // Dolby Digital Plus (E-AC-3)
+}
+
+// Represents a video codec.
+enum VideoCodec {
+  H264 = 0; // H.264/AVC
+  VP9 = 1; // VP9
+  AV1 = 2; // AV1
+  HEVC = 3; // HEVC/H.265
+}
+
+// Represents an audio channel layout.
+message AudioChannelLayout {
+  int32 max_channels = 1; // The maximum number of channels.
+  map<string, string> bitrates = 2; // Map of audio codecs to target bitrates (e.g., "500k", "7.5M").
+}
+
+// Represents a video resolution.
+message VideoResolution {
+  string name = 1; // Name of the resolution (e.g., "1080p").
+  int32 max_width = 2; // Maximum width in pixels.
+  int32 max_height = 3; // Maximum height in pixels.
+  int32 max_frame_rate = 4; // Maximum frame rate in frames per second (optional).
+  map<string, string> bitrates = 5; // Map of video codecs to target bitrates (e.g., "500k", "7.5M").
+}
+
+// Configuration for bitrates, including audio channel layouts and video resolutions.
+message BitrateConfiguration {
+  map<string, AudioChannelLayout> audio_channel_layouts = 1; // Map of named audio channel layouts.
+  map<string, VideoResolution> video_resolutions = 2; // Map of named video resolutions.
+}
