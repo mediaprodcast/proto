@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package configurations.v1;
+package config.v1;
 
-import "orchestrator/v1/configurations/bitrate_config.proto";
-import "orchestrator/v1/configurations/encryption_config.proto";
+import "orchestrator/v1/config/encryption_config.proto";
+import "orchestrator/v1/config/bitrate_config.proto";
 
 // Represents the streaming mode.
 enum StreamingMode {
@@ -24,7 +24,7 @@ message UtcTimingPair {
 }
 
 // Represents the entire pipeline configuration.
-message PipelineConfiguration {
+message PipelineConfig {
   StreamingMode streaming_mode = 1; // Streaming mode.
   bool quiet = 2; // Whether to suppress output.
   bool debug_logs = 3; // Whether to enable debug logs.
@@ -46,5 +46,4 @@ message PipelineConfiguration {
   EncryptionConfig encryption = 19; // Encryption configuration.
   bool low_latency_dash_mode = 20; // Whether to use low latency mode for DASH.
   repeated UtcTimingPair utc_timings = 21; // List of UTCTiming pairs for DASH MPD.
-  BitrateConfiguration bitrate_config = 22; // Bitrate configuration. Added BitrateConfiguration to PipelineConfig
 }

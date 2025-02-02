@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package storage.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// StorageDriver represents the type of storage driver.
+enum StorageDriver {
+  FS = 0; // Filesystem storage.
+  GCS = 1; // Google Cloud Storage.
+  S3 = 2; // Amazon S3.
+  UNKNOWN = 4; // Unknown storage
+}
+
+// FileSystemConfig configures the filesystem storage driver.
+message FileSystemConfig {
+  string data_path = 1; // Path to the data directory.
+}
+
+// GCSConfig configures the Google Cloud Storage driver.
+message GCSConfig {
+  string credentials_file = 1; // Path to the credentials file.
+  string bucket = 2; // GCS bucket name.
+}
+
+// S3Config configures the Amazon S3 driver.
+message S3Config {
+  string endpoint = 1; // S3 endpoint.
+  string access_key_id = 2; // S3 access key ID.
+  string secret_access_key = 3; // S3 secret access key.
+  string region = 4; // S3 region.
+  string bucket = 5; // S3 bucket name.
+  bool enable_ssl = 6; // Whether to enable SSL.
+  bool use_path_style = 7; // Whether to use path-style addressing.
+}
+
+// StorageConfig configures the overall storage settings.
+message StorageConfig {
+  StorageDriver driver = 1; // The storage driver to use.
+  FileSystemConfig fs = 2; // Filesystem configuration.
+  S3Config s3 = 3; // S3 configuration.
+  GCSConfig gcs = 4; // GCS configuration.
+}
+
+// FTPConfig configures the FTP storage settings.
+message FTPConfig {
+  string address = 1; // FTP server address.
+  string username = 2; // FTP username.
+  string password = 3; // FTP password.
+}
+
+// Stat contains metadata about content stored in storage.
+message Stat {
+  google.protobuf.Timestamp modified_time = 1; // Last modified time.
+  int64 size = 2; // Size in bytes.
+}

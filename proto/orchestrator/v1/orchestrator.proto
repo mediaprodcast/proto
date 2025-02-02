@@ -3,12 +3,18 @@ syntax = "proto3";
 package orchestrator.v1;
 
 import "google/api/annotations.proto";
-import "orchestrator/v1/configurations/input_config.proto";
+import "orchestrator/v1/config/input_config.proto";
+import "orchestrator/v1/config/pipeline_config.proto";
+import "orchestrator/v1/config/bitrate_config.proto";
+import "storage/v1/defs.proto";
 
 // -------------------------------------------------requests------------------------------
 message CreateJobRequest {
   string org_id = 1;
-  repeated TranscodingProfile transcoding_profiles = 2;
+  config.v1.InputConfig input_config = 2;
+  config.v1.PipelineConfig pipeline_config = 3;
+  config.v1.BitrateConfig bitrate_config = 4;
+  storage.v1.StorageConfig output_location = 5;
 }
 
 enum JobStatus {
@@ -28,7 +34,6 @@ message CreateJobResponse {
 message UpdateJobRequest {
   string job_id = 1;
   JobStatus status = 2;
-  repeated TranscodingProfile transcoding_profiles = 3;
 }
 
 message UpdateJobResponse {
@@ -42,11 +47,6 @@ message DestroyJobRequest {
 message DestroyJobResponse {
   string job_id = 1;
   bool success = 2;
-}
-
-message TranscodingProfile {
-  int32 bitrate = 1;
-  int32 frame_rate = 2;
 }
 
 message GetJobsRequest {
@@ -74,11 +74,11 @@ message GetJobRequest {
 }
 
 message EchoTestResponse {
-  configurations.v1.Input data = 1;
+  config.v1.Input data = 1;
 }
 
 message EchoTestRequest {
-  configurations.v1.Input input = 1;
+  config.v1.Input input = 1;
 }
 
 service OrchestratorService {

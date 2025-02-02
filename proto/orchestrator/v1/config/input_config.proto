@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package configurations.v1;
+package config.v1;
 
 // ----------------------------------------------------input config---------------------------------------
 // Represents the type of an input stream.
@@ -130,7 +130,7 @@ message SinglePeriod {
 }
 
 // An object representing the entire input config
-message InputConfiguration {
+message InputConfig {
   // A list of SinglePeriod objects
   repeated SinglePeriod multiperiod_inputs_list = 1;
 

@@ -169,7 +169,7 @@ service ProbeService {
   }
   rpc GetStream(GetStreamRequest) returns (GetStreamResponse) {
     option (google.api.http) = {
-      get: "/probe/v1/streams/{index}" // Changed to GET for single stream retrieval
+      get: "/probe/v1/streams/{index}"
       response_body: "stream"
     };
   }

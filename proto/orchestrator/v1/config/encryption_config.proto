@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package configurations.v1;
+package config.v1;
 
 // Represents a protection scheme.
 enum ProtectionScheme {

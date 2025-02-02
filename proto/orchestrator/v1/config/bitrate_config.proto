@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package configurations.v1;
+package config.v1;
 
 // Represents an audio codec.
 enum AudioCodec {
@@ -34,7 +34,7 @@ message VideoResolution {
 }
 
 // Configuration for bitrates, including audio channel layouts and video resolutions.
-message BitrateConfiguration {
+message BitrateConfig {
   map<string, AudioChannelLayout> audio_channel_layouts = 1; // Map of named audio channel layouts.
   map<string, VideoResolution> video_resolutions = 2; // Map of named video resolutions.
 }
