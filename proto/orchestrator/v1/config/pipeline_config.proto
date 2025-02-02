@@ -25,7 +25,7 @@ message UtcTimingPair {
 
 // Represents the entire pipeline configuration.
 message PipelineConfig {
-  StreamingMode streaming_mode = 1; // Streaming mode.
+  repeated StreamingMode streaming_mode = 1; // Streaming mode.
   bool quiet = 2; // Whether to suppress output.
   bool debug_logs = 3; // Whether to enable debug logs.
   string hwaccel_api = 4; // Hardware acceleration API.

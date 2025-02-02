@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package packager.v1;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "orchestrator/v1/config/pipeline_config.proto";
+import "storage/v1/defs.proto";
+import "packager/v1/defs.proto";
+
+message GeneratePlaylistRequest {
+  repeated OutputStream output_streams = 1;
+  config.v1.PipelineConfig pipeline_config = 2;
+  storage.v1.StorageConfig output_location = 3;
+}
+
+service ProbeService {
+  rpc GeneratePlaylist(GeneratePlaylistRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/packager/v1/playlist"
+      body: "*"
+    };
+  }
+}
+

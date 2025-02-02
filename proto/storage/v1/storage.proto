@@ -4,17 +4,11 @@ package storage.v1;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
-import "google/api/annotations.proto";
 import "storage/v1/defs.proto";
 
 // StorageService defines the storage service interface.
 service StorageService {
-  rpc Save(SaveRequest) returns (google.protobuf.Empty) {
-    option (google.api.http) = {
-      post: "/test"
-      body: "*"
-    };
-  }
+  rpc Save(SaveRequest) returns (google.protobuf.Empty);
   rpc Stat(StatRequest) returns (StatResponse);
   rpc Open(OpenRequest) returns (stream Chunk);
   rpc Delete(DeleteRequest) returns (google.protobuf.Empty);

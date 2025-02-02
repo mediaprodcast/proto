@@ -171,7 +171,7 @@ func (x *UtcTimingPair) GetValue() string {
 // Represents the entire pipeline configuration.
 type PipelineConfig struct {
 	state                  protoimpl.MessageState `protogen:"open.v1"`
-	StreamingMode          StreamingMode          `protobuf:"varint,1,opt,name=streaming_mode,json=streamingMode,proto3,enum=config.v1.StreamingMode" json:"streaming_mode,omitempty"`            // Streaming mode.
+	StreamingMode          []StreamingMode        `protobuf:"varint,1,rep,packed,name=streaming_mode,json=streamingMode,proto3,enum=config.v1.StreamingMode" json:"streaming_mode,omitempty"`     // Streaming mode.
 	Quiet                  bool                   `protobuf:"varint,2,opt,name=quiet,proto3" json:"quiet,omitempty"`                                                                              // Whether to suppress output.
 	DebugLogs              bool                   `protobuf:"varint,3,opt,name=debug_logs,json=debugLogs,proto3" json:"debug_logs,omitempty"`                                                     // Whether to enable debug logs.
 	HwaccelApi             string                 `protobuf:"bytes,4,opt,name=hwaccel_api,json=hwaccelApi,proto3" json:"hwaccel_api,omitempty"`                                                   // Hardware acceleration API.
@@ -226,11 +226,11 @@ func (*PipelineConfig) Descriptor() ([]byte, []int) {
 	return file_orchestrator_v1_config_pipeline_config_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *PipelineConfig) GetStreamingMode() StreamingMode {
+func (x *PipelineConfig) GetStreamingMode() []StreamingMode {
 	if x != nil {
 		return x.StreamingMode
 	}
-	return StreamingMode_LIVE
+	return nil
 }
 
 func (x *PipelineConfig) GetQuiet() bool {
@@ -392,7 +392,7 @@ var file_orchestrator_v1_config_pipeline_config_proto_rawDesc = string([]byte{
 	0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75,
 	0x65, 0x22, 0xc8, 0x07, 0x0a, 0x0e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x43, 0x6f,
 	0x6e, 0x66, 0x69, 0x67, 0x12, 0x3f, 0x0a, 0x0e, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x69, 0x6e,
-	0x67, 0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x63,
+	0x67, 0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0e, 0x32, 0x18, 0x2e, 0x63,
 	0x6f, 0x6e, 0x66, 0x69, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x69,
 	0x6e, 0x67, 0x4d, 0x6f, 0x64, 0x65, 0x52, 0x0d, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x69, 0x6e,
 	0x67, 0x4d, 0x6f, 0x64, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x71, 0x75, 0x69, 0x65, 0x74, 0x18, 0x02,
