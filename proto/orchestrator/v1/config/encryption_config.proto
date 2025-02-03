@@ -5,8 +5,10 @@ package config.v1;
 // Represents a protection scheme.
 enum ProtectionScheme {
   CENC = 0; // CENC (Common Encryption)
-  CBCS = 1; // CBCS (Cipher Block Chaining with Salt)
-}
+  CBC1 = 1; // CBC1 (Cipher Block Chaining)
+  CBCS = 2; // CBCS (Cipher Block Chaining with Salt)
+  CENS = 3; // CENS (Common Encryption with Salt)
+};
 
 // Represents a protection system.
 enum ProtectionSystem {
@@ -18,7 +20,7 @@ enum ProtectionSystem {
 }
 
 // Represents a raw key configuration.
-message RawKeyConfig {
+message RawKey {
   string label = 1; // Label for the key.
   string key_id = 2; // Key identifier (32-digit hex string).
   string key = 3; // Encryption key (32-digit hex string).
@@ -37,7 +39,7 @@ message EncryptionConfig {
   repeated ProtectionSystem protection_systems = 3; // List of protection systems.
   string pssh = 4; // PSSH box in hex string format (for raw mode).
   string iv = 5; // IV in hex string format (for raw mode).
-  repeated RawKeyConfig keys = 6; // List of encryption keys (for raw mode).
+  repeated RawKey keys = 6; // List of encryption keys (for raw mode).
   string content_id = 7; // Content ID in hex (for widevine mode).
   string key_server_url = 8; // Key server URL (for widevine mode).
   string signer = 9; // Signer for key server authentication (for widevine mode).

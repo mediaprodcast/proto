@@ -7,9 +7,10 @@ import "orchestrator/v1/config/bitrate_config.proto";
 
 // Represents the streaming mode.
 enum StreamingMode {
-  LIVE = 0; // Live stream.
-  VOD = 1; // Video-on-demand stream.
-}
+  LIVE = 0; // Live stream with segment removal.
+  VOD = 1;  // Video-on-demand stream with a fixed playlist.
+  EVENT = 2; // Event-based stream where segments are not removed.
+};
 
 // Represents the manifest format.
 enum ManifestFormat {
@@ -25,7 +26,7 @@ message UtcTimingPair {
 
 // Represents the entire pipeline configuration.
 message PipelineConfig {
-  repeated StreamingMode streaming_mode = 1; // Streaming mode.
+  StreamingMode streaming_mode = 1; // Streaming mode.
   bool quiet = 2; // Whether to suppress output.
   bool debug_logs = 3; // Whether to enable debug logs.
   string hwaccel_api = 4; // Hardware acceleration API.
