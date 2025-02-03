@@ -12,6 +12,7 @@ message GeneratePlaylistRequest {
   repeated OutputStream output_streams = 1;
   config.v1.PipelineConfig pipeline_config = 2;
   storage.v1.StorageConfig output_location = 3;
+  PackagingTool packaging_tool = 4;
 }
 
 service ProbeService {

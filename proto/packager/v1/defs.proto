@@ -13,3 +13,8 @@ message OutputStream {
   bool forced_subtitle = 6;
   map<string, string> features = 7;
 }
+
+enum PackagingTool {
+  SHAKA_PACKAGER = 0;
+  BENTO4 = 1;
+}
