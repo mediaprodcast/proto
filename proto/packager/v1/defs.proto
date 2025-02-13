@@ -6,7 +6,7 @@ import "orchestrator/v1/config/input_config.proto";
 
 message OutputStream {
   string input = 1;
-  config.v1.MediaType type = 2;
+  config.v1.MediaType media_type = 2;
   string language = 3;
   string drm_label = 4;
   bool skip_encryption = 5;
