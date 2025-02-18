@@ -16,8 +16,10 @@ message GeneratePlaylistRequest {
   PackagingTool packaging_tool = 5;
 }
 
+message GeneratePlaylistResponse {}
+
 service ProbeService {
-  rpc GeneratePlaylist(GeneratePlaylistRequest) returns (google.protobuf.Empty) {
+  rpc GeneratePlaylist(GeneratePlaylistRequest) returns (GeneratePlaylistResponse) {
     option (google.api.http) = {
       post: "/packager/v1/playlist"
       body: "*"

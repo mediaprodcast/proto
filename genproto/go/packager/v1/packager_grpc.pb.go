@@ -11,7 +11,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -27,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProbeServiceClient interface {
-	GeneratePlaylist(ctx context.Context, in *GeneratePlaylistRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GeneratePlaylist(ctx context.Context, in *GeneratePlaylistRequest, opts ...grpc.CallOption) (*GeneratePlaylistResponse, error)
 }
 
 type probeServiceClient struct {
@@ -38,9 +37,9 @@ func NewProbeServiceClient(cc grpc.ClientConnInterface) ProbeServiceClient {
 	return &probeServiceClient{cc}
 }
 
-func (c *probeServiceClient) GeneratePlaylist(ctx context.Context, in *GeneratePlaylistRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *probeServiceClient) GeneratePlaylist(ctx context.Context, in *GeneratePlaylistRequest, opts ...grpc.CallOption) (*GeneratePlaylistResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
+	out := new(GeneratePlaylistResponse)
 	err := c.cc.Invoke(ctx, ProbeService_GeneratePlaylist_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -52,7 +51,7 @@ func (c *probeServiceClient) GeneratePlaylist(ctx context.Context, in *GenerateP
 // All implementations should embed UnimplementedProbeServiceServer
 // for forward compatibility.
 type ProbeServiceServer interface {
-	GeneratePlaylist(context.Context, *GeneratePlaylistRequest) (*emptypb.Empty, error)
+	GeneratePlaylist(context.Context, *GeneratePlaylistRequest) (*GeneratePlaylistResponse, error)
 }
 
 // UnimplementedProbeServiceServer should be embedded to have
@@ -62,7 +61,7 @@ type ProbeServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedProbeServiceServer struct{}
 
-func (UnimplementedProbeServiceServer) GeneratePlaylist(context.Context, *GeneratePlaylistRequest) (*emptypb.Empty, error) {
+func (UnimplementedProbeServiceServer) GeneratePlaylist(context.Context, *GeneratePlaylistRequest) (*GeneratePlaylistResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GeneratePlaylist not implemented")
 }
 func (UnimplementedProbeServiceServer) testEmbeddedByValue() {}
