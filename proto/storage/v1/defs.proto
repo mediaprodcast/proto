@@ -53,4 +53,7 @@ message FTPConfig {
 message Stat {
   google.protobuf.Timestamp modified_time = 1; // Last modified time.
   int64 size = 2; // Size in bytes.
+  string name = 3; // Name of the content.
+  string path = 4; // Path to the content.
+  string content_type = 5; // Content type.
 }
